@@ -10,7 +10,7 @@ def traverse(node):
     while queue:
         node = queue.pop(0)
         nodes.add(node)
-        for child in node.children:
+        for child in node._prev:
             edges.add((child, node))
             queue.append(child)
 
@@ -34,8 +34,8 @@ def draw_graph(node):
             label = ""
         d.node(str(id(node)),
                (rf"{{{label}data: {node.data:.3f}|grad: {node.grad:.3f}}}"))
-        if node.op:
-            d.node(str(id(node)) + 'op', node.op, shape='circle')
+        if node._op:
+            d.node(str(id(node)) + 'op', node._op, shape='circle')
             d.edge(str(id(node)) + 'op', str(id(node)))
 
     for edge in edges:
